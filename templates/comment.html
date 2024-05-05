@@ -1,0 +1,153 @@
+{% load static %}
+<html>
+<body >
+    <nav class="site-navigation">
+		<div class="site-navigation-inner site-container">
+			<img src="{% static "images/site-logo.png" %}" alt="site logo">
+			<div class="main-navigation">
+				<ul class="main-navigation__ul">
+			
+                 <li>
+                    <a href="{% url "home" %}"><button type="reset" id="limpar">رجوع</button></a>
+                 </li>
+				</ul>
+			</div>
+			<div id="myBtn" class="burger-container" onclick="myFunction(this)">
+				<div class="bar1"></div>
+				<div class="bar2"></div>
+				<div class="bar3"></div>
+			</div>
+			<script>
+				function myFunction(x) {
+					x.classList.toggle("change");
+				}
+			</script>
+
+		</div>
+	</nav>
+    <link rel="stylesheet" href="{% static "css/style1.css" %}">
+	<link rel="stylesheet" href="{% static "css/slick1.css" %}">
+    <link rel="stylesheet" href="{% static "css/conect.css" %}">
+
+    <form class="form" method="POST">
+        {% csrf_token %}
+  
+        <label for="name">الاسم:</label>
+        
+          <input type="text" class="infos" id="nome" name="name">
+        <div class="mario"></div>
+          
+          <label for="email">اكتب الايميل:</label>
+          <input type="email" id="email" name="email">
+          <label for="">اكتب التاريخ:</label>
+          <input type="date" id="" class="date" name="date">
+          <label for="">اكتب تعليق:</label>
+          <textarea  class="textarea" name="comment"></textarea>
+          <button type="submit">ارسال</button>
+          <button type="reset" id="limpar">مسح</button>
+    
+    
+    </form>
+   
+    <div class="footer-bottom">
+        <div class="site-container footer-bottom-inner">
+            <p>© 2024  | صمم بواسطه <a href="" target="_blank">jassim.com</a>.</p>
+            <div class="footer-bottom__img">
+                <img src="{% static "images/footer-mastercard.png" %}" alt="footer image">
+                <img src="{% static "images/footer-paypal.png" %}" alt="footer image">
+                <img src="{% static "images/footer-visa.png" %}" alt="footer image">
+                <img src="{% static "images/footer-fedex.png" %}" alt="footer image">
+                <img src="{% static "images/footer-dhl.png" %}" alt="footer image">
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer end -->
+
+<!-- Scripts -->
+<script src="{% static "js/jquery.min.js" %}"></script>
+<script src="{% static "js/slick.min.js" %}"></script>
+
+<script>
+
+
+    $(document).ready(function() {
+
+
+        /* Navigation burger onclick side navigation show */
+        $('.burger-container').on('click', function() {
+            $('.main-navigation').toggle('slow');
+    
+            if($('#myBtn').hasClass('change')) {
+                $('body').addClass('stop-scroll');
+            } else {
+                $('body').removeClass('stop-scroll');
+            }
+        });
+   
+    
+        /* About me slider */
+        $('.about-me-slider').slick({
+            slidesToShow: 1,
+            prevArrow: '<span class="span-arrow slick-prev"><</span>',
+            nextArrow: '<span class="span-arrow slick-next">></span>'
+        });
+    
+        /* Blog slider */
+        $('.blog-slider').slick({
+            slidesToShow: 2,
+            prevArrow: '<span class="span-arrow slick-prev"><</span>',
+            nextArrow: '<span class="span-arrow slick-next">></span>',
+            responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 1
+                }
+            }
+            ]
+        });
+        
+    });
+    
+    
+    
+    var counta = 0;
+    
+    $(window).scroll(function(e){
+    
+    
+        /* Onscroll number counter */
+        var statisticNumbers = $('.single-count');
+        if(statisticNumbers.length) {
+            var oTop = statisticNumbers.offset().top - window.innerHeight;
+            if (counta == 0 && $(window).scrollTop() > oTop) {
+                $('.count').each(function() {
+                    var $this = $(this),
+                    countTo = $this.attr('data-count');
+                    $({
+                        countNum: $this.text()
+                    }).animate({
+                        countNum: countTo
+                    },
+    
+                    {
+                        duration: 2000,
+                        easing: 'swing',
+                        step: function() {
+                            $this.text(Math.floor(this.countNum));
+                        },
+                        complete: function() {
+                            $this.text(this.countNum);
+                        }
+                    });
+                });
+                counta = 1;
+            }
+        }
+    
+    });
+</script>
+
+</body>
+</html>
